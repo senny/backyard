@@ -1,0 +1,8 @@
+== In Git
+
+=== New Features
+* define the attributes, which name your model (Backyard.configure: name_attribute :title, :for => :article)
+* define the name of your model with a block (Backyard.configure: name_for :article do |name| {:title => name} end)
+* factory_girl support
+
+=== Bugfixes
