@@ -32,7 +32,12 @@ module Backyard
               else
                 adapter.class_for_type(model_type)
               end
-      model_store.get(klass, name)
+      result = model_store.get(klass, name)
+      if result.respond_to?(:reload)
+        result.reload
+      else
+        result
+      end
     end
 
     def model_exists?(model_type, name)
