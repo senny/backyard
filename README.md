@@ -1,5 +1,7 @@
 # Backyard
 
+this project is in a 'work in progress' state. The object creation currently only works with factory_girl.
+
 ## Installation
 
 in your Gemfile:
