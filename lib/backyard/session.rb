@@ -57,7 +57,7 @@ module Backyard
     end
 
     def self.generate_model_name(model_type)
-      "#{model_type.to_s.capitalize} #{Time.now.to_f}"
+      "#{model_type.to_s.capitalize} #{Time.now.to_f}".tap{|s| s << s.object_id.to_s}
     end
 
   end
