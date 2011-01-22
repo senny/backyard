@@ -15,4 +15,31 @@ describe Backyard::ModelStore do
     subject.get(String, 'Jane').should == "This is Jane"
   end
 
+  describe "#get_collection" do
+    context "without models" do
+      it "should return an emtpy array" do
+
+      end
+    end
+
+    context "with models" do
+      before do
+        subject.put "John", "I am John"
+        subject.put "Jane", "I am Jane"
+      end
+
+      it "should return 2 items" do
+        subject.get_collection(String).should have(2).items
+      end
+
+
+      it "should return the models" do
+        subject.get_collection(String).should == {
+          'John' =>'I am John',
+          'Jane' => 'I am Jane'
+        }
+      end
+    end
+  end
+
 end

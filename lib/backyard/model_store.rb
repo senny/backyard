@@ -16,5 +16,9 @@ module Backyard
         models[name]
       end
     end
+
+    def get_collection(klass)
+      @store[klass] || []
+    end
   end # END ModelStore
 end # END Backyard
