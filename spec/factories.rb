@@ -9,3 +9,7 @@ require File.join(File.dirname(__FILE__), 'models')
 Factory.define :user do |f|
   f.username 'John Doe'
 end
+
+Factory.define :account do |f|
+  f.description '<missing>'
+end
