@@ -7,6 +7,7 @@ $stdout = File.new('/dev/null', 'w')
 ActiveRecord::Schema.define do
   create_table :users do |t|
     t.string :username
+    t.string :email
   end
 
   create_table :accounts do |t|

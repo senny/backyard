@@ -40,3 +40,17 @@ Feature: backyard should work with FactoryGirl
     """
     When I store the account "Holidays" in the backyard
     Then the account "Holidays" should have the description "Holidays"
+
+  Scenario: advanced configuration for model names
+    Given I have the following backyard configuration:
+    """
+    Backyard.configure do
+      name_for :user do |name|
+        {:username => name,
+        :email => "#{name.downcase.gsub(/\s/, '.')}@gmail.com"}
+      end
+    end
+    """
+    When I store the user "John Doe" in the backyard
+    Then the user "John Doe" should have the username "John Doe"
+    And the user "John Doe" should have the email "john.doe@gmail.com"
