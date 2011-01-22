@@ -40,7 +40,7 @@ If you want to write step definitions, which do not care if the model you are re
 
 ## Examples
 
-The best way to get an idea of backyard is to peek inside the [cucumber features](https://github.com/senny/backyard/tree/master/features).
+The best way, to get an idea of backyard in action, is to peek inside the [cucumber features](https://github.com/senny/backyard/tree/master/features).
 
 ## Configuration
 
