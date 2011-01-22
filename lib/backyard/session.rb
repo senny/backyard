@@ -7,7 +7,7 @@ module Backyard
 
     def put_model(model_type, name = nil, options = {})
       model_name = name.nil? ? Backyard::Session.generate_model_name(model_type) : name
-      klass = adapter.class_for_type(model_type)
+      klass = class_for_type(model_type)
       obj = if options.is_a?(Hash)
               model_config = Backyard.config.config_for(klass)
               name_attributes = model_config.name_attributes.map { |attribute| [attribute, model_name]}
@@ -27,11 +27,7 @@ module Backyard
     end
 
     def get_model(model_type, name)
-      klass = if model_type.kind_of?(Class)
-                model_type
-              else
-                adapter.class_for_type(model_type)
-              end
+      klass = class_for_type(model_type)
       result = model_store.get(klass, name)
       if result.respond_to?(:reload)
         result.reload
@@ -52,12 +48,26 @@ module Backyard
       end
     end
 
+    def models(model_type)
+      model_store.get_collection class_for_type(model_type)
+    end
+
     def model_store
       @store ||= ModelStore.new
     end
 
     def self.generate_model_name(model_type)
       "#{model_type.to_s.capitalize} #{Time.now.to_f}"
+    end
+
+    protected
+
+    def class_for_type(model_type)
+      klass = if model_type.kind_of?(Class)
+                model_type
+              else
+                adapter.class_for_type(model_type)
+              end
     end
 
   end

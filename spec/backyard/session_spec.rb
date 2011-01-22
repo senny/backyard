@@ -23,6 +23,17 @@ describe Backyard::Session do
     end
   end
 
+  describe "#models" do
+    before do
+      adapter.should_receive(:class_for_type).with(:array).and_return(Array)
+    end
+    context "when no models are stored" do
+      it "should return an empty array" do
+        subject.models(:array).should be_empty
+      end
+    end
+  end
+
   describe "#put_model" do
     context "with a name" do
       context "with an object to store" do
