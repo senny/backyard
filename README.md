@@ -38,6 +38,10 @@ If you want to write step definitions, which do not care if the model you are re
     model(:user, 'Tester') # this will return the user called 'Tester' if one has been crated, otherwise it will create a new model for you
     model(:user, 'Gardener', {:approved => true})  # you can also pass additional attributes for the factories
 
+## Examples
+
+The best way to get an idea of backyard is to peek inside the [cucumber features](https://github.com/senny/backyard/tree/master/features).
+
 ## Configuration
 
 Backyard needs to know how to name your models correctly. You can define the rules using the `Backyard.configure` method:
