@@ -48,7 +48,7 @@ module Backyard
       end
     end
 
-    def models(model_type)
+    def get_models(model_type)
       model_store.get_collection class_for_type(model_type)
     end
 

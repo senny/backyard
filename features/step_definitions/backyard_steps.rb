@@ -17,7 +17,7 @@ When /^I store the #{backyard_model} "([^"]*)" in the backyard$/ do |model_type,
 end
 
 Then /^the backyard should have (\d+) stored #{backyard_model}$/ do |amount, model_type|
-  models(model_type).should have(amount.to_i).item
+  get_models(model_type).should have(amount.to_i).item
 end
 
 Then /^the backyard should have a stored #{backyard_model} named "([^"]*)"$/ do |model_type, model_name|
