@@ -8,6 +8,13 @@ Given /^I use the factory_girl adapter for backyard$/ do
   Backyard.config.use_adapter :factory_girl
 end
 
+When /^I store the following #{backyard_model} in the backyard:$/ do |model_type, model_table|
+  model_table.hashes.each do |row|
+    attributes = {}
+    put_model(model_type, row['Name'], attributes)
+  end
+end
+
 When /^I store the #{backyard_model} "([^"]*)" in the backyard$/ do |model_type, model_name|
   put_model(model_type, model_name)
 end
