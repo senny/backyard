@@ -58,3 +58,8 @@ Feature: backyard should work with FactoryGirl
   Scenario: the backyard is empty by default
     Then the backyard should have 0 stored users
     Then the backyard should have 0 stored accounts
+
+  Scenario: the backyard always returns updated models
+    When I store the user "John" in the backyard
+    And I set "John"'s username to "John the man" using a sql query
+    Then the user "John" should have the username "John the man"
