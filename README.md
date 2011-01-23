@@ -8,13 +8,11 @@ in your Gemfile:
 
     gem 'backyard'
 
-in your features/support/env.rb:
-
+to configure backyard, you need to create a backyard.rb file in your features/support directory:
     require 'backyard/cucumber'
 
-to configure backyard, you need to create a backyard.rb file in your features/support directory:
-
     Backyard.configure do
+      # application specific configuration
       name_attribute :username, :for => :user
       name_attribute :title, :for => [:post, :comment]
     end
