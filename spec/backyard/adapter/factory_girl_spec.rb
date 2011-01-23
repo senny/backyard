@@ -21,6 +21,14 @@ describe Backyard::Adapter::FactoryGirl do
     it "should work with a factory where the class is guessed" do
       subject.class_for_type(:array).should == Array
     end
+
+    context "when no factory is defined" do
+      it "should raise an ArgumentError" do
+        lambda do
+          subject.class_for_type(:i_am_not_a_valid_factory)
+        end.should raise_error(ArgumentError)
+      end
+    end
   end
 
 end
