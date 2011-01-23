@@ -7,23 +7,23 @@ module Backyard
 
     def put_model(model_type, name = nil, options = {})
       model_name = name.nil? ? Backyard::Session.generate_model_name(model_type) : name
-      klass = class_for_type(model_type)
-      obj = if options.is_a?(Hash)
-              model_config = Backyard.config.config_for(klass)
-              name_attributes = model_config.name_attributes.map { |attribute| [attribute, model_name]}
-              block_attributes = model_config.name_blocks.inject({}) do |attrs, block|
-          attrs.merge(instance_exec model_name, &block)
-        end
-              attributes = Hash[name_attributes].merge(block_attributes).merge(options)
-              adapter.create(model_type, attributes)
+      obj = if model_type.is_a?(String) || model_type.is_a?(Symbol)
+              klass = class_for_type(model_type)
+              obj = if options.is_a?(Hash)
+                      model_config = Backyard.config.config_for(klass)
+                      name_attributes = model_config.name_attributes.map { |attribute| [attribute, model_name]}
+                      block_attributes = model_config.name_blocks.inject({}) do |attrs, block|
+            attrs.merge(instance_exec model_name, &block)
+          end
+                      attributes = Hash[name_attributes].merge(block_attributes).merge(options)
+                      adapter.create(model_type, attributes)
+                    else
+                      options
+                    end
             else
-              options
+              model_type
             end
       model_store.put(model_name, obj)
-    end
-
-    def put_instance(name, obj)
-      model_store.put(name, obj)
     end
 
     def get_model(model_type, name)

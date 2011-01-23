@@ -71,12 +71,12 @@ describe Backyard::Session do
         subject.get_model(:note, 'Note 123').should == 'The Note'
       end
     end
-  end
 
-  describe "#put_instance" do
-    it "should store the object under the given name" do
-      subject.put_instance('Johnny', {:me => 'Johhny'})
-      subject.get_model(Hash, 'Johnny').should == {:me => 'Johhny'}
+    context "with an object" do
+      it "should store the object under the given name" do
+        subject.put_model({:me => 'Johhny'}, 'Johnny')
+        subject.get_model(Hash, 'Johnny').should == {:me => 'Johhny'}
+      end
     end
   end
 

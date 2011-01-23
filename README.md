@@ -25,7 +25,7 @@ Backyard provides a simple dsl to name the models in your cucumber scenarios.
     put_model(:post, 'I am published', {:published => true}) # you can pass additional options for the factory
 
     my_comment = Comment.first
-    put_instance(my_comment, 'My Comment') # you can also store existing models
+    put_model(my_comment, 'My Comment') # you can also store existing models
 
 Backyard keeps track of your saved models and you can access them from all the step definitions:
 
