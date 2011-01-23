@@ -6,7 +6,7 @@ module Backyard
     end
 
     def put_model(model_type, name = nil, options = {})
-      model_name = name.nil? ? Backyard::Session.generate_model_name(model_type) : name
+      model_name = name.nil? ? adapter.generate_model_name(model_type) : name
       obj = if model_type.is_a?(String) || model_type.is_a?(Symbol)
               klass = class_for_type(model_type)
               attributes = apply_model_config(klass, model_name).merge(options)
@@ -41,10 +41,6 @@ module Backyard
 
     def model_store
       @store ||= ModelStore.new
-    end
-
-    def self.generate_model_name(model_type)
-      "#{model_type.to_s.capitalize} #{Time.now.to_f}"
     end
 
     protected

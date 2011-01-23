@@ -63,7 +63,7 @@ describe Backyard::Session do
       it "should generate a name" do
         adapter.should_receive(:create).with(:note, {}).and_return('The Note')
         adapter.should_receive(:class_for_type).with(:note).and_return(String)
-        Backyard::Session.should_receive(:generate_model_name).with(:note).and_return { 'Note 123' }
+        adapter.should_receive(:generate_model_name).with(:note).and_return { 'Note 123' }
         model_store.should_receive(:put).with('Note 123', 'The Note')
 
         subject.put_model(:note)
@@ -111,13 +111,4 @@ describe Backyard::Session do
     end
   end
 
-  describe ".generate_model_name" do
-    it "should use the capitalized name as starting point" do
-      Backyard::Session.generate_model_name(:user).should be_start_with('User ')
-    end
-
-    it "should always generate a unique name" do
-      (1..10).map { Backyard::Session.generate_model_name(:article) }.uniq.should have(10).items
-    end
-  end
 end

@@ -5,6 +5,10 @@ module Backyard
       model_type.to_s.split('_').map!{ |w| w.capitalize }.join
     end
 
+    def generate_model_name(model_type)
+      "#{model_type.to_s.capitalize} #{Time.now.to_f}"
+    end
+
     def create(model_type, attributes)
       raise NotImplementedError
     end

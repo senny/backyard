@@ -18,7 +18,7 @@ describe Backyard::ModelStore do
   describe "#get_collection" do
     context "without models" do
       it "should return an emtpy array" do
-
+        subject.get_collection(Hash).should == []
       end
     end
 
