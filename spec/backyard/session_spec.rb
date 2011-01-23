@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Backyard::Session do
 
+  let(:model_store) { mock }
   let(:adapter) { mock }
 
   subject do
@@ -10,27 +11,38 @@ describe Backyard::Session do
     end
     session = sessionClass.new
     session.stub(:adapter => adapter)
+    session.stub(:model_store => model_store)
     session
   end
 
   describe "#get_model" do
+
     it "should delegate to the model_store" do
-      model_store = mock
-      subject.stub(:model_store => model_store)
       adapter.should_receive(:class_for_type).with(:user).and_return(Struct)
       model_store.should_receive(:get).with(Struct, 'Jeremy').and_return('I am Jeremy')
       subject.get_model(:user, 'Jeremy').should == 'I am Jeremy'
     end
+
+    context "with a reloadable model" do
+      it "should return the reloaded model" do
+        object = Array.new
+        object.should_receive(:reload).and_return(['I', 'am', 'reloaded'])
+
+        adapter.should_receive(:class_for_type).with(:array).and_return(Array)
+        model_store.should_receive(:get).with(Array, 'Reloadable Array').and_return(object)
+
+        subject.get_model(:array, 'Reloadable Array').should == ['I', 'am', 'reloaded']
+      end
+    end
+
   end
 
   describe "#get_models" do
-    before do
+
+    it "should delegate to the model_store" do
       adapter.should_receive(:class_for_type).with(:array).and_return(Array)
-    end
-    context "when no models are stored" do
-      it "should return an empty array" do
-        subject.get_models(:array).should be_empty
-      end
+      model_store.should_receive(:get_collection).with(Array).and_return([[1], [2]])
+      subject.get_models(:array).should == [[1], [2]]
     end
   end
 
@@ -38,8 +50,6 @@ describe Backyard::Session do
     context "with a name" do
       context "with an attributes Hash" do
         it "should delegate to the model_store" do
-          model_store = mock
-          subject.stub(:model_store => model_store)
           adapter.should_receive(:create).with(:post, {}).and_return('The Post')
           adapter.should_receive(:class_for_type).with(:post).and_return(String)
 
@@ -52,18 +62,18 @@ describe Backyard::Session do
     context "without a name" do
       it "should generate a name" do
         adapter.should_receive(:create).with(:note, {}).and_return('The Note')
-        adapter.should_receive(:class_for_type).with(:note).twice.and_return(String)
+        adapter.should_receive(:class_for_type).with(:note).and_return(String)
         Backyard::Session.should_receive(:generate_model_name).with(:note).and_return { 'Note 123' }
+        model_store.should_receive(:put).with('Note 123', 'The Note')
 
         subject.put_model(:note)
-        subject.get_model(:note, 'Note 123').should == 'The Note'
       end
     end
 
     context "with an object" do
       it "should store the object under the given name" do
+        model_store.should_receive(:put).with('Johnny', {:me => 'Johhny'})
         subject.put_model({:me => 'Johhny'}, 'Johnny')
-        subject.get_model(Hash, 'Johnny').should == {:me => 'Johhny'}
       end
     end
   end

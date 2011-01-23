@@ -20,11 +20,7 @@ module Backyard
     def get_model(model_type, name)
       klass = class_for_type(model_type)
       result = model_store.get(klass, name)
-      if result.respond_to?(:reload)
-        result.reload
-      else
-        result
-      end
+      reload_model(result)
     end
 
     def model_exists?(model_type, name)
@@ -52,6 +48,14 @@ module Backyard
     end
 
     protected
+
+    def reload_model(model)
+      if model.respond_to?(:reload)
+        model.reload
+      else
+        model
+      end
+    end
 
     def class_for_type(model_type)
       klass = if model_type.kind_of?(Class)
