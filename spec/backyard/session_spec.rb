@@ -36,18 +36,6 @@ describe Backyard::Session do
 
   describe "#put_model" do
     context "with a name" do
-      context "with an object to store" do
-        it "should store the object" do
-          adapter.should_receive(:class_for_type).with(:post).and_return(String)
-
-          model_store = mock
-          subject.stub(:model_store => model_store)
-
-          model_store.should_receive(:put).with('First Post!', 'My New Post')
-          subject.put_model(:post, 'First Post!', 'My New Post')
-        end
-      end
-
       context "with an attributes Hash" do
         it "should delegate to the model_store" do
           model_store = mock
