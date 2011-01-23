@@ -54,3 +54,7 @@ Feature: backyard should work with FactoryGirl
     When I store the user "John Doe" in the backyard
     Then the user "John Doe" should have the username "John Doe"
     And the user "John Doe" should have the email "john.doe@gmail.com"
+
+  Scenario: the backyard is empty by default
+    Then the backyard should have 0 stored users
+    Then the backyard should have 0 stored accounts
