@@ -1,8 +1,16 @@
 == In Git
 
 === New Features
-* define the attributes, which name your model (Backyard.configure: name_attribute :title, :for => :article)
-* define the name of your model with a block (Backyard.configure: name_for :article do |name| {:title => name} end)
-* factory_girl support
 
 === Bugfixes
+
+== 0.0.1 (24.01.2011)
+
+=== New Features
+* define the attributes, which name your model [Yves Senn]
+* define the name of your model with a block [Yves Senn]
+* basic API for storing, accessing and building named models [Yves Senn]
+* factory_girl support [Yves Senn]
+
+=== Bugfixes
+* reload models before the return [Yves Senn]
