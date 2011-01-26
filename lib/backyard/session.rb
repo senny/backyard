@@ -6,13 +6,13 @@ module Backyard
     # @overload put_model(type, name, attributes)
     #   creates an instance from type 'type' and saved it under the
     #   passed name. The attributes are forwarded to the object creation
-    #   @param [Symbol] type the type of object that should get created
-    #   @param [String] name the name for the newly created object
+    #   @param [Symbol] type
+    #   @param [String] name
     #   @param [Hash] attributes additional parameters for the object creation
     # @overload put_model(object, name)
     #   stores the given object under 'name'
     #   @param [Object] object the object to store
-    #   @param [String] name the name for the object
+    #   @param [String] name
     # @return [Object] the object, which was stored
     def put_model(model_type, name = nil, attributes = {})
       model_name = name.nil? ? adapter.generate_model_name(model_type) : name
@@ -28,9 +28,9 @@ module Backyard
 
     # Retrieve a stored object from the backyard.
     #
-    # @param [Symbol] type the type of the object to retrieve
-    # @param [String] name the name of the object to retrieve
-    # @return [Object, nil] the object with the given type and name
+    # @param [Symbol] model_type
+    # @param [String] name
+    # @return [Object, nil]
     def get_model(model_type, name)
       klass = class_for_type(model_type)
       result = model_store.get(klass, name)
@@ -39,8 +39,8 @@ module Backyard
 
     # Check if a model is stored in the backyard.
     #
-    # @param [Symbol] type the type of the object
-    # @param [String] name the name of the object
+    # @param [Symbol] model_type
+    # @param [String] name
     # @return [true, false]
     def model_exists?(model_type, name)
       get_model(model_type, name) != nil
@@ -52,9 +52,9 @@ module Backyard
     # @see #get_model
     # @see #put_model
     #
-    # @param [Symbol] model_type the type of the object
-    # @param [String] name the name of the object
-    # @return [Object] an object with the given type and name
+    # @param [Symbol] model_type
+    # @param [String] name
+    # @return [Object]
     def model(model_type, name, attributes = {})
       if model_exists?(model_type, name)
         get_model(model_type, name)
@@ -65,8 +65,8 @@ module Backyard
 
     # Retrieve all objects for a given type.
     #
-    # @param [Symbol] type the type of the objects to retrieve
-    # @return [Array<Object>] an array of objects of the given type
+    # @param [Symbol] type
+    # @return [Array<Object>]
     def get_models(model_type)
       model_store.get_collection class_for_type(model_type)
     end
