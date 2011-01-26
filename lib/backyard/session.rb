@@ -105,6 +105,5 @@ module Backyard
       end
       Hash[name_attributes].merge(block_attributes)
     end
-
   end
 end
