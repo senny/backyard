@@ -42,18 +42,16 @@ describe Backyard::Configuration do
     end
   end
 
-  describe "#use_adapter" do
-    it "should set the specified adapter" do
-      subject.use_adapter :factory_girl
+  describe "adapter" do
+    class Backyard::Adapter::Special; end
+
+    it "should use the factory_girl adapter by default" do
       subject.adapter_instance.should be_kind_of(Backyard::Adapter::FactoryGirl)
     end
-  end
 
-  describe "#adapter_instance" do
-    describe "default: " do
-      it "should return the factory girl adapter" do
-        subject.adapter_instance.should be_kind_of(Backyard::Adapter::FactoryGirl)
-      end
+    it "should use the adapter specified with #use_adapter" do
+      subject.use_adapter :special
+      subject.adapter_instance.should be_kind_of(Backyard::Adapter::Special)
     end
   end
 
