@@ -38,7 +38,7 @@ module Backyard
     def adapter_klass
       adapter_name = adapter.to_s.split('_').map!{ |w| w.capitalize }.join
       adapter_class = "Backyard::Adapter::#{adapter_name}"
-      unless defined?(adapter_class)
+      unless eval("defined?(#{adapter_class}) && #{adapter_class}.is_a?(Class)") == true
         require File.join('backyard', 'adapter', "#{adapter}")
       end
       eval adapter_class
