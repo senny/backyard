@@ -54,5 +54,4 @@ describe Backyard::Configuration do
       subject.adapter_instance.should be_kind_of(Backyard::Adapter::Special)
     end
   end
-
 end

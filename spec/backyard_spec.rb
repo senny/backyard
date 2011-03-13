@@ -19,4 +19,14 @@ describe Backyard do
     end
   end
 
+  describe ".global_store" do
+    it "is a Backyard::Session" do
+      Backyard.global_store.should be_kind_of(Backyard::Session)
+    end
+
+    it "is always the same object" do
+      Backyard.global_store.should == Backyard.global_store
+    end
+  end
+
 end

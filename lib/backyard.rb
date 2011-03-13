@@ -13,4 +13,10 @@ module Backyard
     @config ||= Backyard::Configuration.new
     @config
   end
+
+  def self.global_store
+    return @global_store if @global_store
+    @global_store = Object.new
+    @global_store.extend Backyard::Session
+  end
 end

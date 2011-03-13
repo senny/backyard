@@ -1,6 +1,7 @@
 == In Git
 
 === New Features
+* global_store for seed data across features
 
 === Bugfixes
 

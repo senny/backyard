@@ -33,7 +33,7 @@ module Backyard
     # @return [Object, nil]
     def get_model(model_type, name)
       klass = class_for_type(model_type)
-      result = model_store.get(klass, name)
+      result = model_store.get(klass, name) || Backyard.global_store.model_store.get(klass, name)
       reload_model(result)
     end
 
