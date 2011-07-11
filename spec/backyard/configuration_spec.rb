@@ -7,7 +7,7 @@ describe Backyard::Configuration do
   describe "#name_attribute" do
     context "with single for key" do
       it "should store the specified attribtues" do
-        subject.name_attribute :username, :for => :string
+        subject.name_for :string, :attribute => :username
         subject.config_for(String).name_attributes.should == [:username]
       end
     end

@@ -16,10 +16,16 @@ module Backyard
       end
     end
 
-    def name_for(*model_types, &block)
-      model_types.each do |model_type|
+    def name_for(*args, &block)
+      options = args.extract_options!
+      args.each do |model_type|
         klass = adapter_instance.class_for_type(model_type)
-        config_for(klass).name_blocks << block
+
+        if options.has_key?(:attribute)
+          config_for(klass).name_attributes << options[:attribute]
+        else
+          config_for(klass).name_blocks << block
+        end
       end
     end
 
