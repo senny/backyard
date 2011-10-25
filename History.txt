@@ -1,7 +1,15 @@
 == In Git
 
 === New Features
+
+=== Bugfixes
+
+
+== 0.1.0 (25.10.2011)
+
+=== New Features
 * global_store for seed data across features
+* unify name_attribute and name_for
 
 === Bugfixes
 
