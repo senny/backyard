@@ -23,6 +23,19 @@ describe Backyard::Session do
       subject.get_model(:user, 'Jeremy').should == 'I am Jeremy'
     end
 
+    it "should call find_model_from_database if needed and desired" do
+      Backyard.name_based_database_lookup = true
+
+      user = mock
+      Backyard.config.name_for :user, :attribute => :username
+
+      adapter.should_receive(:class_for_type).with(:user).and_return(User)
+      model_store.should_receive(:get).with(User, 'Jeremy').and_return(nil)
+      User.should_receive(:where).with(:username => 'Jeremy').and_return([user])
+      model_store.should_receive(:put).with('Jeremy', user)
+      subject.get_model(:user, 'Jeremy').should == user
+    end
+
     context "with a reloadable model" do
       it "should return the reloaded model" do
         object = Array.new
@@ -38,7 +51,6 @@ describe Backyard::Session do
   end
 
   describe "#get_models" do
-
     it "should delegate to the model_store" do
       adapter.should_receive(:class_for_type).with(:array).and_return(Array)
       model_store.should_receive(:get_collection).with(Array).and_return([[1], [2]])
