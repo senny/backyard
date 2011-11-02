@@ -34,7 +34,13 @@ module Backyard
     def get_model(model_type, name)
       klass = class_for_type(model_type)
       result = model_store.get(klass, name) || Backyard.global_store.model_store.get(klass, name)
-      reload_model(result)
+      if result.nil? && Backyard.name_based_database_lookup
+        result = find_model_from_database(klass, name)
+        put_model(result, name) if result
+        result
+      else
+        reload_model(result)
+      end
     end
 
     # Check if a model is stored in the backyard.
@@ -104,6 +110,13 @@ module Backyard
         attrs.merge(instance_exec model_name, &block)
       end
       Hash[name_attributes].merge(block_attributes)
+    end
+
+    def find_model_from_database(klass, model_name)
+      model_config = Backyard.config.config_for(klass)
+      name_attributes = model_config.name_attributes
+      return unless name_attributes.size == 1
+      klass.where(name_attributes.first => model_name).first
     end
   end
 end

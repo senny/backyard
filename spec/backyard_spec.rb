@@ -2,6 +2,26 @@ require 'spec_helper'
 
 describe Backyard do
 
+  describe "name_based_database_lookup" do
+    it "default is set to false" do
+      Backyard.name_based_database_lookup.should be_false
+    end
+
+    it "can be set to true" do
+      Backyard.name_based_database_lookup = true
+
+      Backyard.name_based_database_lookup.should be_true
+    end
+
+    it "can be reseted" do
+      Backyard.name_based_database_lookup = true
+
+      Backyard.reset_name_based_database_lookup
+
+      Backyard.name_based_database_lookup.should be_false
+    end
+  end
+
   describe ".configure" do
     it "should eval the configuration block in the Backyard::Configuration scope" do
       scope = nil
