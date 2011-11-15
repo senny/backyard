@@ -4,3 +4,4 @@ pkg/*
 .bundle
 .rvmrc
 .yardoc/
+Gemfile.lock
