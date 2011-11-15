@@ -1,7 +1,7 @@
 class Backyard::Adapter::FactoryGirl < Backyard::Adapter
 
   def class_for_type(model_type)
-    factory = ::Factory.factories[model_type.to_sym]
+    factory = factory_girl_class.factories[model_type.to_sym]
     raise ArgumentError, "no factory for: #{model_type}\ngot: #{::Factory.factories.keys}" unless factory
     factory.build_class
   end
@@ -9,5 +9,10 @@ class Backyard::Adapter::FactoryGirl < Backyard::Adapter
   def create(model_type, attributes)
     Factory(model_type, attributes)
   end
+
+  def factory_girl_class
+    defined?(::FactoryGirl) ? ::FactoryGirl : Factory
+  end
+  private :factory_girl_class
 
 end
