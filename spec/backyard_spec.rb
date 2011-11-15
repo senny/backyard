@@ -3,6 +3,10 @@ require 'spec_helper'
 describe Backyard do
 
   describe "name_based_database_lookup" do
+    before :each do
+      Backyard.reset_name_based_database_lookup
+    end
+
     it "default is set to false" do
       Backyard.name_based_database_lookup.should be_false
     end
