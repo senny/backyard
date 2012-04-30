@@ -7,7 +7,7 @@ class Backyard::Adapter::FactoryGirl < Backyard::Adapter
   end
 
   def create(model_type, attributes)
-    Factory(model_type, attributes)
+    factory_girl_class.create(model_type, attributes)
   end
 
   def factory_girl_class

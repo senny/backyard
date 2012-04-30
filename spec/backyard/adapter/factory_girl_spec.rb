@@ -4,7 +4,7 @@ describe Backyard::Adapter::FactoryGirl do
 
   describe "#create" do
     it "should delegate to factory_girl" do
-      subject.should_receive(:Factory).with(:entry, {:name => '123 Entry'})
+      Factory.should_receive(:create).with(:entry, {:name => '123 Entry'})
       subject.create :entry, {:name => '123 Entry'}
     end
   end
