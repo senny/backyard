@@ -13,6 +13,5 @@ class Backyard::Adapter::FactoryGirl < Backyard::Adapter
   def factory_girl_class
     defined?(::FactoryGirl) ? ::FactoryGirl : Factory
   end
-  private :factory_girl_class
 
 end

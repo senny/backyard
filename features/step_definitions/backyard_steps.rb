@@ -4,8 +4,8 @@ end
 
 Given /^I use the factory_girl adapter for backyard$/ do
   require 'factory_girl'
-  Factory.find_definitions
   Backyard.config.use_adapter :factory_girl
+  Backyard.config.adapter_instance.factory_girl_class.find_definitions
 end
 
 Given /^I have the following backyard configuration:$/ do |string|
