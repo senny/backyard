@@ -1,5 +1,7 @@
 # Backyard
 
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/senny/backyard)
+
 this project is in a 'work in progress' state. The object creation currently only works with factory_girl.
 
 ## Installation
