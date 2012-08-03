@@ -45,7 +45,7 @@ describe Backyard::Adapter::FactoryGirl do
         end
       end
       it "should use the factory class returned by #factory_girl_class" do
-        subject.stub(:factory_girl_class) { factory_provider }
+        described_class.stub(:factory_girl_class) { factory_provider }
         subject.class_for_type(:my_factory).should == TestClass
       end
     end
@@ -56,12 +56,12 @@ describe Backyard::Adapter::FactoryGirl do
 
     it "returns ::FactoryGirl for factory_girl 2.x and higher" do
       Object.const_set("FactoryGirl", factory_class)
-      subject.send(:factory_girl_class).should == factory_class
+      described_class.send(:factory_girl_class).should == factory_class
       Object.send(:remove_const, "FactoryGirl")
     end
 
     it "returns Factory for factory_girl 1.x and lower" do
-      subject.send(:factory_girl_class).should == Factory
+      described_class.send(:factory_girl_class).should == Factory
     end
   end
 
