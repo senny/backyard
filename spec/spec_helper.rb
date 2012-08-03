@@ -2,11 +2,7 @@ require File.join(File.dirname(__FILE__), '..', 'lib', 'backyard')
 require 'factory_girl'
 require 'backyard/adapter/factory_girl'
 
-if defined?(FactoryGirl)
-  FactoryGirl.find_definitions
-else
-  Factory.find_definitions
-end
+Backyard::Adapter::FactoryGirl.factory_girl_class.find_definitions
 
 RSpec.configure do |config|
   # == Mock Framework
